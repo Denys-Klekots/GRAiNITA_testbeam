@@ -1,0 +1,28 @@
+/control/verbose 2
+/control/saveHistory
+/run/verbose 2
+
+#/physics_lists/em/GammaNuclear false
+#/physics_lists/em/ElectroNuclear false
+
+/run/initialize
+
+
+/gps/position 0 0 0.25 m
+/gps/direction 0 0 -1
+/gps/particle gamma
+/gps/energy 25 GeV
+
+#
+# Box mesh
+#
+/score/create/boxMesh CallorimeterBox
+/score/mesh/boxSize 87.5 87.5 200.0 mm 
+/score/mesh/nBin 175 1 400
+/score/quantity/energyDeposit eDep MeV
+/score/close
+
+# 25 Gev gamma
+/analysis/setFileName eEsc_gamma_25GeV_depth.root
+/run/beamOn 1000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_depth.txt
