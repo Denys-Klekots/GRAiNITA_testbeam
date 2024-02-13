@@ -36,3 +36,6 @@ build/*
 
 # Plots directory
 plots/*
+
+# Visual Studion Code config
+.vscode

@@ -1,20 +1,20 @@
-#ifndef __GRAiNTIASteppingAction_HH__
-#define __GRAiNTIASteppingAction_HH__
+// #ifndef __GRAiNTIASteppingAction_HH__
+// #define __GRAiNTIASteppingAction_HH__
 
-#include <G4UserSteppingAction.hh>
+// #include <G4UserSteppingAction.hh>
 
-class GRAiNTIASteppingAction: public G4UserSteppingAction
-{
+// class GRAiNTIASteppingAction: public G4UserSteppingAction
+// {
 
-public:
+// public:
 
-    GRAiNTIASteppingAction();
-    virtual ~GRAiNTIASteppingAction();
+//     GRAiNTIASteppingAction();
+//     virtual ~GRAiNTIASteppingAction();
 
-    virtual void UserSteppingAction(const G4Step*);
+//     virtual void UserSteppingAction(const G4Step*);
 
-};
+// };
 
 
 
-#endif //__GRAiNTIASteppingAction_HH__
+// #endif //__GRAiNTIASteppingAction_HH__

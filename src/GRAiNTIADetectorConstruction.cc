@@ -10,6 +10,9 @@
 
 #include <G4LogicalVolume.hh>
 #include <G4PVPlacement.hh>
+#include <G4SDManager.hh>
+
+#include "GRAiNTIAScintillatorSD.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -120,4 +123,13 @@ G4VPhysicalVolume* GRAiNTIADetectorConstruction::Construct()
 
     return worldPV;
 
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void GRAiNTIADetectorConstruction::ConstructSDandField()
+{
+    GRAiNTIAScintillatorSD* scintSD = new GRAiNTIAScintillatorSD("scintSD", "scintSDHitsCollection");
+    G4SDManager::GetSDMpointer()->AddNewDetector(scintSD);
+    SetSensitiveDetector("scintilatorLV", scintSD);
 }

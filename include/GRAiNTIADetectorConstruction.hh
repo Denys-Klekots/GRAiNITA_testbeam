@@ -11,6 +11,7 @@ public:
     ~GRAiNTIADetectorConstruction();
 
     G4VPhysicalVolume* Construct();
+    virtual void ConstructSDandField();
 
 private:
 
