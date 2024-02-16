@@ -105,20 +105,29 @@ G4VPhysicalVolume* GRAiNTIADetectorConstruction::Construct()
     // Scintilator volume
     //////////////////////////
 
-    G4double sct_hxy = 87.5 * mm;
+    G4double sct_hx = 28.0/2.0 * mm;
+    G4double sct_hy = 84.0 * mm;
     G4double sct_hz  = 200 * mm;
 
-    G4VSolid *sctS = new G4Box("Scintilator_box", sct_hxy, sct_hxy, sct_hz);
+    G4VSolid *sctS = new G4Box("Scintilator_box", sct_hx, sct_hy, sct_hz);
     G4LogicalVolume* scintilatorLV = new G4LogicalVolume(sctS, scintilatorMixture, "scintilatorLV");
 
-    G4VPhysicalVolume* scintilatorPV = new G4PVPlacement(nullptr,         // no rotation
-                                                         G4ThreeVector(), // plasement possition at (0,0,0)
-                                                         scintilatorLV,   // logical volume
-                                                         "scintilator",   // name
-                                                         worldLV,         // no mother volume for world volume
-                                                         false,           // no boolean oparations
-                                                         0,               // copy number
-                                                         true);           // chech overlaps
+    for(int i = 0; i < 6; ++i)
+    {
+
+        G4ThreeVector position =  G4ThreeVector((i*28.0-70)*mm, 0, 0);           
+
+        G4VPhysicalVolume* scintilatorPV = new G4PVPlacement(nullptr,        // no rotation
+                                                            position,        // plasement possition
+                                                            scintilatorLV,   // logical volume
+                                                            "scintilator",   // name
+                                                            worldLV,         // no mother volume for world volume
+                                                            false,           // no boolean oparations
+                                                            i,               // copy number
+                                                            true);           // chech overlaps
+    }
+
+
 
 
     return worldPV;

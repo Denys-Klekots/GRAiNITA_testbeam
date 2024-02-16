@@ -1,6 +1,7 @@
 #include "GRAiNTIARunAction.hh"
 
 #include <G4AnalysisManager.hh>
+#include <G4String.hh>
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -17,10 +18,13 @@ GRAiNTIARunAction::GRAiNTIARunAction()
     analysisManager->CreateNtupleDColumn(0,"Xpos");      // column id = 2
     analysisManager->CreateNtupleDColumn(0,"Ypos");      // column id = 3
     analysisManager->CreateNtupleDColumn(0,"Zpos");      // column id = 4
+    analysisManager->CreateNtupleIColumn(0,"cellID");    // column id = 5
     analysisManager->FinishNtuple(0); 
 
     analysisManager->CreateNtuple("Edep", "deposited energy");
-    analysisManager->CreateNtupleDColumn(1,"eDep");      // column id = 0
+    analysisManager->CreateNtupleDColumn(1, "eDep_cell");  // column id = 0
+    analysisManager->CreateNtupleIColumn(1, "cellID");     // column id = 1
+    analysisManager->CreateNtupleIColumn(1, "evntID");     // column id = 2
     analysisManager->FinishNtuple(1);
 }
 

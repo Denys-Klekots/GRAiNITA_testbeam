@@ -13,8 +13,8 @@
 # Box mesh
 #
 /score/create/boxMesh CallorimeterBox
-/score/mesh/boxSize 87.5 87.5 200.0 mm 
-/score/mesh/nBin 175 175 1
+/score/mesh/boxSize 84.0 84.0 200.0 mm 
+/score/mesh/nBin 168 168 1
 /score/quantity/energyDeposit eDep MeV
 /score/close
 
@@ -25,68 +25,129 @@
 /gps/particle gamma
 /gps/energy 25 GeV
 
-/gps/position 0 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_0,0.root
+/gps/position 0.0035 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_3.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_0,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_3.5,0.txt
 
-/gps/position 0.007 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_7,0.root
+/gps/position 0.0105 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_10.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_7,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_10.5,0.txt
 
-/gps/position 0.014 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_14,0.root
+/gps/position 0.0175 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_17.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_14,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_17.5,0.txt
 
-/gps/position 0.021 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_21,0.root
+/gps/position 0.0245 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_24.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_21,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_24.5,0.txt
 
-/gps/position 0.028 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_28,0.root
+/gps/position 0.0315 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_31.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_28,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_31.5,0.txt
 
-/gps/position 0.035 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_35,0.root
+/gps/position 0.0385 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_38.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_35,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_38.5,0.txt
 
-/gps/position 0.042 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_42,0.root
+/gps/position 0.0455 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_45.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_42,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_45.5,0.txt
 
-/gps/position 0.049 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_49,0.root
+/gps/position 0.0525 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_52.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_49,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_52.5,0.txt
 
-/gps/position 0.056 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_56,0.root
+/gps/position 0.0595 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_59.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_56,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_59.5,0.txt
 
-/gps/position 0.063 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_63,0.root
+/gps/position 0.0665 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_66.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_63,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_66.5,0.txt
 
-/gps/position 0.070 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_70,0.root
+/gps/position 0.0735 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_73.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_70,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_73.5,0.txt
 
-/gps/position 0.077 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_77,0.root
+/gps/position 0.0805 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_25GeV_80.5,0.root
 /run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_77,0.txt
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_80.5,0.txt
 
-/gps/position 0.084 0 -0.25 m
-/analysis/setFileName eEsc_gamma_25GeV_84,0.root
-/run/beamOn 1000
-/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_25GeV_Box_84,0.txt
+######################################
+# 1 Gev gamma
+######################################
 
+/gps/particle gamma
+/gps/energy 1 GeV
+
+/gps/position 0.0035 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_3.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_3.5,0.txt
+
+/gps/position 0.0105 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_10.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_10.5,0.txt
+
+/gps/position 0.0175 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_17.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_17.5,0.txt
+
+/gps/position 0.0245 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_24.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_24.5,0.txt
+
+/gps/position 0.0315 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_31.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_31.5,0.txt
+
+/gps/position 0.0385 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_38.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_38.5,0.txt
+
+/gps/position 0.0455 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_45.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_45.5,0.txt
+
+/gps/position 0.0525 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_52.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_52.5,0.txt
+
+/gps/position 0.0595 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_59.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_59.5,0.txt
+
+/gps/position 0.0665 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_66.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_66.5,0.txt
+
+/gps/position 0.0735 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_73.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_73.5,0.txt
+
+/gps/position 0.0805 0.0 -0.25 m
+/analysis/setFileName eEsc_gamma_1GeV_80.5,0.root
+/run/beamOn 10000
+/score/dumpQuantityToFile CallorimeterBox eDep eDep_gamma_1GeV_Box_80.5,0.txt

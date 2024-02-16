@@ -38,7 +38,7 @@ extern G4ThreadLocal G4Allocator<GRAiNTIACalorimeterHit>* GRAiNTIACalorimeterHit
 
 inline void* GRAiNTIACalorimeterHit::operator new(size_t)
 {
-    if(!GRAiNTIACalorimeterHitAllocator)
+    if(GRAiNTIACalorimeterHitAllocator == nullptr)
         GRAiNTIACalorimeterHitAllocator = new G4Allocator<GRAiNTIACalorimeterHit>;
     return (void*)GRAiNTIACalorimeterHitAllocator->MallocSingle();
 }

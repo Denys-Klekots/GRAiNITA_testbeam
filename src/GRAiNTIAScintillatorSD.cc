@@ -8,6 +8,8 @@
 #include <G4VProcess.hh>
 #include <G4RunManager.hh>
 
+#include <cmath>
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 GRAiNTIAScintillatorSD::GRAiNTIAScintillatorSD(const G4String& name, const 
@@ -21,13 +23,14 @@ GRAiNTIAScintillatorSD::GRAiNTIAScintillatorSD(const G4String& name, const
 
 GRAiNTIAScintillatorSD::~GRAiNTIAScintillatorSD()
 {
-
+    
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void GRAiNTIAScintillatorSD::Initialize(G4HCofThisEvent* hce)
 {
+
     fHitsCollection 
         = new GRAiNTIACalorimeterHitsCollection(SensitiveDetectorName, collectionName[0]);
 
@@ -36,7 +39,7 @@ void GRAiNTIAScintillatorSD::Initialize(G4HCofThisEvent* hce)
     G4int hcID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]);
     hce->AddHitsCollection(hcID, fHitsCollection); 
 
-    for(G4int i = 0; i < 1; ++i)
+    for(G4int i = 0; i < 6; ++i)
     {
         GRAiNTIACalorimeterHit* newHit = new GRAiNTIACalorimeterHit;
         newHit->SetCellNumber(i);
@@ -73,14 +76,20 @@ G4bool GRAiNTIAScintillatorSD::ProcessHits(G4Step* step, G4TouchableHistory* his
     // Writing escaped particle properties in output.
     //////////////////////////////////////////////////// 
 
-    if(step->GetPostStepPoint()->GetTouchable()->GetVolume()->GetName() == "world")
+    G4double xPos_mm = step->GetPostStepPoint()->GetPosition().getX() / mm;
+    G4double yPos_mm = step->GetPostStepPoint()->GetPosition().getY() / mm;
+    G4double zPos_mm = step->GetPostStepPoint()->GetPosition().getZ() / mm;
+
+    if(step->GetPostStepPoint()->GetTouchable()->GetVolume()->GetName() == "world" &&
+        ( (fabs(xPos_mm)>69.9999) || (fabs(yPos_mm)>69.9999) || (fabs(zPos_mm)>199.9999)) )
     {
         G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
 
         G4int evID = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
 
         G4double escapedEnergy;
-        if(step->GetTrack()->GetCreatorProcess()->GetProcessName() == "conv")
+        if( step->GetTrack()->GetTrackID() > 1 && //There will be a crush without his line. The primary track has no creator process.
+            step->GetTrack()->GetCreatorProcess()->GetProcessName() == "conv")
         {
             escapedEnergy = step->GetPostStepPoint()->GetTotalEnergy();
         }
@@ -89,16 +98,16 @@ G4bool GRAiNTIAScintillatorSD::ProcessHits(G4Step* step, G4TouchableHistory* his
             escapedEnergy = step->GetPostStepPoint()->GetKineticEnergy();
         }
 
+
+
         analysisManager->FillNtupleIColumn(0, 0, evID);
-        analysisManager->FillNtupleDColumn(0, 1, escapedEnergy/ MeV);
-        analysisManager->FillNtupleDColumn(0, 2, step->GetPostStepPoint()->GetPosition().getX() / mm);
-        analysisManager->FillNtupleDColumn(0, 3, step->GetPostStepPoint()->GetPosition().getY() / mm);
-        analysisManager->FillNtupleDColumn(0, 4, step->GetPostStepPoint()->GetPosition().getZ() / mm);
+        analysisManager->FillNtupleDColumn(0, 1, escapedEnergy/MeV);
+        analysisManager->FillNtupleDColumn(0, 2, xPos_mm);
+        analysisManager->FillNtupleDColumn(0, 3, yPos_mm);
+        analysisManager->FillNtupleDColumn(0, 4, zPos_mm);
+        analysisManager->FillNtupleIColumn(0, 5, cellNumber);
         analysisManager->AddNtupleRow(0);
-
-        // step->GetTrack()->SetTrackStatus(fStopAndKill);
     }
-
 
     return true;
 }
@@ -112,12 +121,16 @@ void GRAiNTIAScintillatorSD::EndOfEvent(G4HCofThisEvent* hce)
 
     G4int nofHits = fHitsCollection->entries();
 
+    G4int evID = G4RunManager::GetRunManager()->GetCurrentEvent()->GetEventID();
+
     for(G4int i = 0; i < nofHits; ++i) 
     {
         GRAiNTIACalorimeterHit* hit = (GRAiNTIACalorimeterHit*)(*fHitsCollection)[i];
         G4double edep = hit->GetEdep();
-        analysisManager->FillNtupleDColumn(1, i, edep/MeV);
-    }
-    analysisManager->AddNtupleRow(1);    
+        analysisManager->FillNtupleDColumn(1, 0, edep/MeV);
+        analysisManager->FillNtupleIColumn(1, 1, i);
+        analysisManager->FillNtupleIColumn(1, 2, evID);
+        analysisManager->AddNtupleRow(1);   
+    } 
 
 }
