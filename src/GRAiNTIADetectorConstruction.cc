@@ -7,6 +7,7 @@
 #include <G4Material.hh>
 
 #include <G4Box.hh>
+#include <G4Tubs.hh>
 
 #include <G4LogicalVolume.hh>
 #include <G4PVPlacement.hh>
@@ -76,11 +77,19 @@ G4VPhysicalVolume* GRAiNTIADetectorConstruction::Construct()
     scintilatorMixture->AddMaterial(ZnWO4, ZnW04_frac);                                             
     scintilatorMixture->AddMaterial(heavLiq, heavLiq_frac); 
 
-    G4cout<<"===========================================================" 
-          << "The radiation length os the scintilatorMixture is "
-          << scintilatorMixture->GetRadlen()/cm << " cm"
-          << "==========================================================="
-          << G4endl;
+    G4cout << "===========================================================" 
+           << "The radiation length os the scintilatorMixture is "
+           << scintilatorMixture->GetRadlen()/cm << " cm"
+           << "==========================================================="
+           << G4endl;
+
+
+    G4Element* hydrogen = manager->FindOrBuildElement(1);
+    G4Element* carbon   = manager->FindOrBuildElement(6);
+    G4Material* fiber_plastic = new G4Material("FigerPlastic", 1*g/cm3, 2, kStateSolid);
+    fiber_plastic->AddElement(hydrogen, 1);
+    fiber_plastic->AddElement(carbon, 1);
+
 
     //////////////////////////
     // world volume
@@ -105,29 +114,56 @@ G4VPhysicalVolume* GRAiNTIADetectorConstruction::Construct()
     // Scintilator volume
     //////////////////////////
 
-    G4double sct_hx = 28.0/2.0 * mm;
+    G4double sct_hx = 84.0 * mm;
     G4double sct_hy = 84.0 * mm;
     G4double sct_hz  = 200 * mm;
 
     G4VSolid *sctS = new G4Box("Scintilator_box", sct_hx, sct_hy, sct_hz);
     G4LogicalVolume* scintilatorLV = new G4LogicalVolume(sctS, scintilatorMixture, "scintilatorLV");
 
-    for(int i = 0; i < 6; ++i)
+
+    G4VPhysicalVolume* scintilatorPV = new G4PVPlacement(nullptr,        // no rotation
+                                                        G4ThreeVector(), // plasement possition
+                                                        scintilatorLV,   // logical volume
+                                                        "scintilator",   // name
+                                                        worldLV,         // a mother volume
+                                                        false,           // no boolean oparations
+                                                        0,               // copy number
+                                                        true);           // chech overlaps
+
+    //////////////////////////
+    // Lightguide fibers
+    //////////////////////////
+
+    G4double lg_r  = 0.5 * mm;
+    G4double lg_hz = 200 * mm;
+
+    G4VSolid* lgS = new G4Tubs("LightGuideFiber",
+                               0,         // inner radius
+                               lg_r,      // outer radius
+                               lg_hz,     // z-half length
+                               0,         // starting Phi
+                               360.*deg); // segment angle)
+
+    G4LogicalVolume* lightGuideLV = new G4LogicalVolume(lgS, fiber_plastic, "lightGuideLV");
+
+
+    for(int i = 0; i < 24; ++i)
     {
+        for(int j = 0; j < 24; ++j)
+        {
+            G4ThreeVector plasement = G4ThreeVector(-80.5*mm + i*7*mm, -80.5*mm + j*7*mm, 0);
 
-        G4ThreeVector position =  G4ThreeVector((i*28.0-70)*mm, 0, 0);           
-
-        G4VPhysicalVolume* scintilatorPV = new G4PVPlacement(nullptr,        // no rotation
-                                                            position,        // plasement possition
-                                                            scintilatorLV,   // logical volume
-                                                            "scintilator",   // name
-                                                            worldLV,         // no mother volume for world volume
-                                                            false,           // no boolean oparations
-                                                            i,               // copy number
-                                                            true);           // chech overlaps
+            G4VPhysicalVolume* lightGuidePV = new G4PVPlacement(nullptr,         // no rotation
+                                                                plasement,       // plasement possition
+                                                                lightGuideLV,    // logical volume
+                                                                "lightguide",    // name
+                                                                scintilatorLV,   // a mother volume
+                                                                false,           // no boolean oparations
+                                                                0,               // copy number
+                                                                true);           // chech overlaps
+        }
     }
-
-
 
 
     return worldPV;
@@ -138,7 +174,7 @@ G4VPhysicalVolume* GRAiNTIADetectorConstruction::Construct()
 
 void GRAiNTIADetectorConstruction::ConstructSDandField()
 {
-    GRAiNTIAScintillatorSD* scintSD = new GRAiNTIAScintillatorSD("scintSD", "scintSDHitsCollection");
-    G4SDManager::GetSDMpointer()->AddNewDetector(scintSD);
-    SetSensitiveDetector("scintilatorLV", scintSD);
+    // GRAiNTIAScintillatorSD* scintSD = new GRAiNTIAScintillatorSD("scintSD", "scintSDHitsCollection");
+    // G4SDManager::GetSDMpointer()->AddNewDetector(scintSD);
+    // SetSensitiveDetector("scintilatorLV", scintSD);
 }

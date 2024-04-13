@@ -11,6 +11,8 @@
 #include "GRAiNTIADetectorConstruction.hh"
 #include "GRAiNTIAActionInitialization.hh"
 
+#include "GRAiNTIACommander.hh"
+
 int main(int argc, char **argv)
 {
 
@@ -18,7 +20,7 @@ int main(int argc, char **argv)
 
 
 
-    G4RunManager* runManager = G4RunManagerFactory::CreateRunManager();
+    G4RunManager* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Serial);
 
     runManager->SetUserInitialization(new GRAiNTIADetectorConstruction());
     runManager->SetUserInitialization(new FTFP_BERT());
@@ -36,8 +38,16 @@ int main(int argc, char **argv)
     if(argc == 2)
     {
         G4String macro = argv[1];
-        G4String command = "/control/execute ";
-        UImanager->ApplyCommand(command + macro);
+        
+        if(macro != "comander")
+        {
+            G4String command = "/control/execute ";
+            UImanager->ApplyCommand(command + macro);
+        }
+        else
+        {
+            runComands();
+        }
     }
     else
     {
