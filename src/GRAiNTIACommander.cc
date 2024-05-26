@@ -4,7 +4,7 @@
 
 #include <string>
 
-const int NumOfEvents = 1000;
+const int NumOfEvents = 3000;
 
 void runComands()
 {
@@ -31,7 +31,7 @@ void runComands()
     //////////////////////////////////////
 
     UImanager->ApplyCommand("/gps/particle gamma");
-    UImanager->ApplyCommand("/gps/energy 25 GeV");
+    UImanager->ApplyCommand("/gps/energy 1 GeV");
 
 
 
