@@ -4,7 +4,7 @@
 
 #include <string>
 
-const int NumOfEvents = 1000;
+const int NumOfEvents = 3000;
 
 void runComands()
 {
@@ -21,17 +21,17 @@ void runComands()
 
     UImanager->ApplyCommand("/score/create/boxMesh CallorimeterBox");
     UImanager->ApplyCommand("/score/mesh/boxSize 84.0 84.0 200.0 mm ");
-    UImanager->ApplyCommand("/score/mesh/nBin 168 168 1");
+    UImanager->ApplyCommand("/score/mesh/nBin 336 336 1");
     UImanager->ApplyCommand("/score/quantity/energyDeposit eDep MeV");
     UImanager->ApplyCommand("/score/close");
 
 
     //////////////////////////////////////
-    // 25 Gev gamma
+    // 1 Gev gamma
     //////////////////////////////////////
 
     UImanager->ApplyCommand("/gps/particle gamma");
-    UImanager->ApplyCommand("/gps/energy 25 GeV");
+    UImanager->ApplyCommand("/gps/energy 1 GeV");
 
 
 
@@ -50,7 +50,7 @@ void runComands()
                               std::to_string(yPos) + " -0.25 m";
 
                 G4String score_comand = "/score/dumpQuantityToFile CallorimeterBox eDep evnt_";
-                score_comand += std::to_string(evtN) + "_gamma_25GeV_" + std::to_string(i) + ","+
+                score_comand += std::to_string(evtN) + "_gamma_1GeV_" + std::to_string(i) + ","+
                                 std::to_string(j) + ".txt";
 
 
