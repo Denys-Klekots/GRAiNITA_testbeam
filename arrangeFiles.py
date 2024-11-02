@@ -5,9 +5,11 @@ import shutil
 source_dir = "build"
 destination_dir = "build/eDepMaps"
 
+ENERGY=1 #GeV
+
 # Loop through all files in the source directory
 for filename in os.listdir(source_dir):
-    if filename.endswith(".txt") and "gamma_25GeV" in filename:
+    if filename.endswith(".txt") and f"gamma_{ENERGY}GeV" in filename:
         parts = filename.split('_')  # Split filename by underscore
         number = parts[0]  # Extract the number part from the filename
         i, j = parts[-1].split('.')[0].split(',')  # Extract the i and j values
