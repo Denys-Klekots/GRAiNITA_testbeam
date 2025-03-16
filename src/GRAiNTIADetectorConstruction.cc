@@ -11,9 +11,14 @@
 
 #include <G4LogicalVolume.hh>
 #include <G4PVPlacement.hh>
-#include <G4SDManager.hh>
 
-#include "GRAiNTIAScintillatorSD.hh"
+#include <G4ScoringManager.hh>
+#include <G4ScoringBox.hh>
+#include <G4AnalysisManager.hh>
+
+#include "GRAiNTIAPSEnegyDeposit3D.hh"
+
+#include <vector>
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -145,6 +150,7 @@ G4VPhysicalVolume* GRAiNTIADetectorConstruction::Construct()
                                0,         // starting Phi
                                360.*deg); // segment angle)
 
+
     G4LogicalVolume* lightGuideLV = new G4LogicalVolume(lgS, fiber_plastic, "lightGuideLV");
 
 
@@ -174,7 +180,30 @@ G4VPhysicalVolume* GRAiNTIADetectorConstruction::Construct()
 
 void GRAiNTIADetectorConstruction::ConstructSDandField()
 {
-    // GRAiNTIAScintillatorSD* scintSD = new GRAiNTIAScintillatorSD("scintSD", "scintSDHitsCollection");
-    // G4SDManager::GetSDMpointer()->AddNewDetector(scintSD);
-    // SetSensitiveDetector("scintilatorLV", scintSD);
+
+    G4ScoringManager * scManager = G4ScoringManager::GetScoringManager();
+
+    G4VScoringMesh* mesh = new G4ScoringBox("Hardcoded_mesh");
+    scManager->RegisterScoringMesh(mesh);
+    
+    G4double size[] = {83.5*mm, 83.5*mm, 200.0*mm};
+    mesh->SetSize(size);
+    
+    G4int nSegment[] = {167, 167, 1};
+    mesh->SetNumberOfSegments(nSegment);
+
+
+    GRAiNTIAPSEnegyDeposit3D* ps = new GRAiNTIAPSEnegyDeposit3D("eDep", "MeV");
+    mesh->SetPrimitiveScorer(ps);
+    scManager->CloseCurrentMesh();
+
+
+    G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+    analysisManager->CreateNtuple("Edep", "deposited energy");
+    analysisManager->CreateNtupleFColumn(0, "xPrimPos");                   // column id = 0
+    analysisManager->CreateNtupleFColumn(0, "yPrimPos");                   // column id = 1   
+    analysisManager->CreateNtupleFColumn(0, "EdepVec", ps->GetEdepVec());  // column id = 2
+    analysisManager->CreateNtupleIColumn(0, "EdepIdx", ps->GetIdxVec());   // column id = 3
+    analysisManager->FinishNtuple(0);
+
 }

@@ -12,18 +12,8 @@ file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 add_executable(GRAiNTIA GRAiNTIA.cc ${sources} ${headers})
 target_link_libraries(GRAiNTIA ${Geant4_LIBRARIES})
 
-set(MAC_SCRIPTS
-    init_vis.mac
-    vis.mac
-    run_center_analysis.mac
-    run_side_mooving.mac
-    run_depth_analysis.mac
-)
 
-foreach(_script ${MAC_SCRIPTS})
-    configure_file(
-    ${PROJECT_SOURCE_DIR}/${_script}
-    ${PROJECT_BINARY_DIR}/${_script}
-    COPYONLY
-    )
-endforeach()
+file(GLOB MY_PUBLIC_HEADERS
+  "${PROJECT_SOURCE_DIR}/*.mac"
+)
+file(COPY ${MY_PUBLIC_HEADERS} DESTINATION  ${PROJECT_BINARY_DIR})

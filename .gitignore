@@ -37,7 +37,13 @@ build/*
 # Plots directory
 plots/*
 
+Sim_maps/*
+Pictured_results/*
+beamtest_maps/*
+
+
 # Visual Studion Code config
 .vscode
 
-Sim_maps/*
+# ROOT files
+*.root

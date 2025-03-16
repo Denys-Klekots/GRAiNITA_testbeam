@@ -11,16 +11,13 @@
 #include "GRAiNTIADetectorConstruction.hh"
 #include "GRAiNTIAActionInitialization.hh"
 
-#include "GRAiNTIACommander.hh"
-
 int main(int argc, char **argv)
 {
 
     G4UIExecutive* ui = new G4UIExecutive(argc, argv);
 
 
-
-    G4RunManager* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Serial);
+    G4RunManager* runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::MT);
 
     runManager->SetUserInitialization(new GRAiNTIADetectorConstruction());
     runManager->SetUserInitialization(new FTFP_BERT());
@@ -29,6 +26,8 @@ int main(int argc, char **argv)
     //initialize Scorin manager
     G4ScoringManager * scManager = G4ScoringManager::GetScoringManager();
     scManager->SetVerboseLevel(1);
+
+
 
     G4VisManager* visManager = new G4VisExecutive;
     visManager->Initialise();
@@ -39,15 +38,9 @@ int main(int argc, char **argv)
     {
         G4String macro = argv[1];
         
-        if(macro != "comander")
-        {
-            G4String command = "/control/execute ";
-            UImanager->ApplyCommand(command + macro);
-        }
-        else
-        {
-            runComands();
-        }
+        G4String command = "/control/execute ";
+        UImanager->ApplyCommand(command + macro);
+
     }
     else
     {

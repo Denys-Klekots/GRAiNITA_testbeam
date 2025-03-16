@@ -3,7 +3,7 @@
 
 #include <G4VUserPrimaryGeneratorAction.hh>
 
-#include <G4GeneralParticleSource.hh>
+#include <G4ParticleGun.hh>
 
 class GRAiNTIAPrimaryGeneratorAction: public G4VUserPrimaryGeneratorAction
 {
@@ -16,7 +16,7 @@ public:
 
 private:
 
-    G4GeneralParticleSource* fParticleSource;    
+    G4ParticleGun* fParticleGun;    
 
 };
 

@@ -6,4 +6,9 @@
 
 /run/initialize
 
-/control/execute vis.mac
+/gun/particle gamma
+/gun/energy 1 GeV
+
+/analysis/setFileName gamma1GeV.root
+
+/run/beamOn 30000
